@@ -1,10 +1,74 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Catálogo de Subastas";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Columna Izquierda: Panel de Filtros -->
+        <aside class="col-md-3 col-lg-2">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Filtros</h5>
+
+                    <!-- Estado -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Estado</label>
+                        <div class="form-check">
+                            <input class="form-check-input filter-radio" type="radio" name="state" value="ACTIVE" id="activeState" checked>
+                            <label class="form-check-label" for="activeState">Activas</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filter-radio" type="radio" name="state" value="SCHEDULED" id="scheduledState">
+                            <label class="form-check-label" for="scheduledState">Próximas</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filter-radio" type="radio" name="state" value="COMPLETED" id="completedState">
+                            <label class="form-check-label" for="completedState">Finalizadas</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filter-radio" type="radio" name="state" value="DESERTED" id="desertedState">
+                            <label class="form-check-label" for="desertedState">Desiertas</label>
+                        </div>
+                    </div>
+
+                    <!-- Categoría -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Categoría</label>
+                        <select class="form-select filter-select" id="categoriaSelect">
+                            <option value="">Todas</option>
+                            <option value="Tecnología">Tecnología</option>
+                            <option value="Coleccionables">Coleccionables</option>
+                            <option value="Vehículos">Vehículos</option>
+                        </select>
+                    </div>
+
+                    <!-- Ordenamiento -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Ordenamiento</label>
+                        <select class="form-select filter-select" id="ordenamientoSelect">
+                            <option value="menor_tiempo">Menor tiempo restante</option>
+                            <option value="mayor_puja">Mayor puja</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Columna Derecha: Grilla de Cards -->
+        <main class="col-md-9 col-lg-10">
+            <!-- Spinner de carga (UX) -->
+            <div id="loadingSpinner" class="text-center my-5 d-none">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Cargando...</span>
+                </div>
+            </div>
+
+            <!-- Contenedor donde JS inyectará las tarjetas -->
+            <div id="auctionGrid" class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+                <!-- Las subastas se renderizan aquí -->
+            </div>
+        </main>
+    </div>
 </div>
